@@ -1,0 +1,51 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Regions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Top left x</th>
+      <th>Top left y</th>
+      <th>Width</th>
+      <th>Height</th>
+      <th>Original</th>
+      <th>Watermark</th>
+      <th>Watermark strength</th>
+      <th>Watermark resolution</th>
+      <th>Link</th>
+	  <th>Trigger</th>
+      <th>Image</th>
+      <th>Payoff</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @regions.each do |region| %>
+      <tr>
+        <td><%= region.name %></td>
+        <td><%= region.top_left_x %></td>
+        <td><%= region.top_left_y %></td>
+        <td><%= region.width %></td>
+        <td><%= region.height %></td>
+        <td><%= region.original %></td>
+        <td><%= region.watermark %></td>
+        <td><%= region.watermark_strength %></td>
+        <td><%= region.watermark_resolution %></td>
+        <td><%= region.link %></td>
+		<td><%= region.trigger %></td>
+        <td><%= region.image %></td>
+        <td><%= region.payoff %></td>
+        <td><%= link_to 'Show', region %></td>
+        <td><%= link_to 'Edit', edit_region_path(region) %></td>
+        <td><%= link_to 'Destroy', region, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Region', new_region_path %>

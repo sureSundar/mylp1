@@ -1,0 +1,2 @@
+module HpusersHelper
+end

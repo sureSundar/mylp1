@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Hpusers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>Password</th>
+      <th>Email</th>
+      <th>Client</th>
+      <th>Client secret</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @hpusers.each do |hpuser| %>
+      <tr>
+        <td><%= hpuser.username %></td>
+        <td><%= hpuser.password %></td>
+        <td><%= hpuser.email %></td>
+        <td><%= hpuser.client_id %></td>
+        <td><%= hpuser.client_secret %></td>
+        <td><%= link_to 'Show', hpuser %></td>
+        <td><%= link_to 'Edit', edit_hpuser_path(hpuser) %></td>
+        <td><%= link_to 'Destroy', hpuser, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Hpuser', new_hpuser_path %>

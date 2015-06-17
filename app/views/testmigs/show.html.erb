@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @testmig.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @testmig.email %>
+</p>
+
+<%= link_to 'Edit', edit_testmig_path(@testmig) %> |
+<%= link_to 'Back', testmigs_path %>

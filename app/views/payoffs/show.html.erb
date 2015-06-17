@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @payoff.name %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @payoff.url %>
+</p>
+
+<p>
+  <strong>Payoff:</strong>
+  <%= @payoff.payoff %>
+</p>
+
+<p>
+  <strong>Project:</strong>
+  <%= @payoff.project %>
+</p>
+
+<%= link_to 'Edit', edit_payoff_path(@payoff) %> |
+<%= link_to 'Back', payoffs_path %>

@@ -1,0 +1,23 @@
+<%= simple_form_for(@region) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <%= f.input :top_left_x %>
+    <%= f.input :top_left_y %>
+    <%= f.input :width %>
+    <%= f.input :height %>
+    <%= f.input :original %>
+    <%= f.input :watermark %>
+    <%= f.input :watermark_strength %>
+    <%= f.input :watermark_resolution %>
+    <%= f.input :link %>
+	<%= f.input :trigger %>
+    <%= f.association :image %>
+    <%= f.association :payoff %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

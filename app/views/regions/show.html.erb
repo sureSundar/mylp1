@@ -1,0 +1,64 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @region.name %>
+</p>
+
+<p>
+  <strong>Top left x:</strong>
+  <%= @region.top_left_x %>
+</p>
+
+<p>
+  <strong>Top left y:</strong>
+  <%= @region.top_left_y %>
+</p>
+
+<p>
+  <strong>Width:</strong>
+  <%= @region.width %>
+</p>
+
+<p>
+  <strong>Height:</strong>
+  <%= @region.height %>
+</p>
+
+<p>
+  <strong>Original:</strong>
+  <%= @region.original %>
+</p>
+
+<p>
+  <strong>Watermark:</strong>
+  <%= @region.watermark %>
+</p>
+
+<p>
+  <strong>Watermark strength:</strong>
+  <%= @region.watermark_strength %>
+</p>
+
+<p>
+  <strong>Watermark resolution:</strong>
+  <%= @region.watermark_resolution %>
+</p>
+
+<p>
+  <strong>Link:</strong>
+  <%= @region.link %>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <%= @region.image %>
+</p>
+
+<p>
+  <strong>Payoff:</strong>
+  <%= @region.payoff %>
+</p>
+
+<%= link_to 'Edit', edit_region_path(@region) %> |
+<%= link_to 'Back', regions_path %>

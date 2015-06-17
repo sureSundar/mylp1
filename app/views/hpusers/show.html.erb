@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Username:</strong>
+  <%= @hpuser.username %>
+</p>
+
+<p>
+  <strong>Password:</strong>
+  <%= @hpuser.password %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @hpuser.email %>
+</p>
+
+<p>
+  <strong>Client:</strong>
+  <%= @hpuser.client_id %>
+</p>
+
+<p>
+  <strong>Client secret:</strong>
+  <%= @hpuser.client_secret %>
+</p>
+
+<%= link_to 'Edit', edit_hpuser_path(@hpuser) %> |
+<%= link_to 'Back', hpusers_path %>
