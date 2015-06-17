@@ -64,7 +64,7 @@ class ImagesController < ApplicationController
     @image = Image.find(params[:id])
     #root_dir = '/Users/sundar/Downloads'
     #save_dir = "#{root_dir}/tc-hpMWMark"
-    
+    uploader = AvatarUploader.new
     filename = "watermark"
      lp = LivePaper.auth({id: "62me9qmy5vy1je70onkq1qe8q4oxhu7y", secret: "sRgV8ECR9ygoA67VSVQimt52sYn5deZ3"})
       #image = LivePaper::Image.upload "file:///Users/sundar/Downloads/IMG_1010.JPG"
@@ -73,13 +73,16 @@ class ImagesController < ApplicationController
       #image = LivePaper::Image.upload "http://www.letsstartsmall.com/ITSE2313_WebAuthoring/images/unit3/jpg_example1.jpg"
       @regions = @image.regions
       puts @regions
-      overlay = Magick::Image.read(@image.original).first
+      #overlay = Magick::Image.read(@image.original).first
+      overlay = Magick::Image.read(@image.original.path).first
+      #overlay = @image.original
       @regions.each do |r|
         puts "Watermarking #{r.name}"
              #overlay_path = Rails.root.join("/assets/images/IMG_1010.png")
              source = Magick::Image.read("#{r.original}").first
              crop = source.crop(r.top_left_x,r.top_left_y,r.width,r.height)
              crop.write('pool_cropped.jpg')
+             uploader.store!(crop)   
              #source = source.resize_to_fill(70, 70).quantize(256, Magick::GRAYColorspace).contrast(true)
              #source.composite!(overlay, 0, 0, Magick::OverCompositeOp)
              #colored = Magick::Image.new(70, 70) { background_color = color }
@@ -105,11 +108,20 @@ class ImagesController < ApplicationController
        
      crop_region = Magick::Image.read("#{filename}_#{r.name}.jpg").last
      final_wm = overlay.composite(crop_region,r.top_left_x,r.top_left_y,Magick::OverCompositeOp)
-    final_wm.write("#{filename}_#{r.name}_final.jpg")   
+    final_wm.write("#{filename}_#{r.name}_final.jpg")
+    puts final_wm 
+    
+    File.open("#{filename}_#{r.name}_final.jpg") do |f|
+      @image.final = f
+    end
+    @image.save
+  
     overlay = Magick::Image.read("#{filename}_#{r.name}_final.jpg").first
+    @finalwm = "#{filename}_#{r.name}_final.jpg"
    end
   end
   #overlay.write("final_watermark.jpg")
+  
   
   def download1
     root_dir = '/Users/sundar/Downloads'
