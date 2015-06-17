@@ -11,7 +11,74 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150616175919) do
+ActiveRecord::Schema.define(version: 20150617164913) do
+
+  create_table "hpusers", force: :cascade do |t|
+    t.string   "username"
+    t.string   "password"
+    t.string   "email"
+    t.string   "client_id"
+    t.string   "client_secret"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "images", force: :cascade do |t|
+    t.string   "name"
+    t.string   "original"
+    t.string   "final"
+    t.integer  "height"
+    t.integer  "width"
+    t.integer  "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "images", ["project_id"], name: "index_images_on_project_id"
+
+  create_table "payoffs", force: :cascade do |t|
+    t.string   "name"
+    t.string   "url"
+    t.string   "payoff"
+    t.integer  "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "payoffs", ["project_id"], name: "index_payoffs_on_project_id"
+
+  create_table "projects", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.string   "user"
+    t.string   "logo"
+    t.integer  "hpuser_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "projects", ["hpuser_id"], name: "index_projects_on_hpuser_id"
+
+  create_table "regions", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "top_left_x"
+    t.integer  "top_left_y"
+    t.integer  "width"
+    t.integer  "height"
+    t.string   "original"
+    t.string   "watermark"
+    t.integer  "watermark_strength"
+    t.integer  "watermark_resolution"
+    t.string   "link"
+    t.integer  "image_id"
+    t.integer  "payoff_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.string   "trigger"
+  end
+
+  add_index "regions", ["image_id"], name: "index_regions_on_image_id"
+  add_index "regions", ["payoff_id"], name: "index_regions_on_payoff_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
