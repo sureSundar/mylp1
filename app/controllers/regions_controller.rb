@@ -46,7 +46,7 @@ class RegionsController < ApplicationController
   # POST /regions.json
   def create
     @region = Region.new(region_params)
-
+    upsert_trigger(@region)
     respond_to do |format|
       if @region.save
         format.html { redirect_to @region, notice: 'Region was successfully created.' }
@@ -77,12 +77,13 @@ class RegionsController < ApplicationController
   # DELETE /regions/1
   # DELETE /regions/1.json
   def destroy
-    @region.destroy
+
     lp = LivePaper.auth({id: "62me9qmy5vy1je70onkq1qe8q4oxhu7y", secret: "sRgV8ECR9ygoA67VSVQimt52sYn5deZ3"})
     t = LivePaper::WmTrigger.get(@region.trigger)
     t.delete
     l =LivePaper::Link.get(@region.link)
     l.delete
+    @region.destroy
     respond_to do |format|
       format.html { redirect_to regions_url, notice: 'Region was successfully destroyed.' }
       format.json { head :no_content }
