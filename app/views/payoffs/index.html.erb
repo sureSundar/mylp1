@@ -14,6 +14,7 @@
   </thead>
 
   <tbody>
+<% if @payoffs != nil %>
     <% @payoffs.each do |payoff| %>
       <tr>
         <td><%= payoff.name %></td>
@@ -25,6 +26,7 @@
         <td><%= link_to 'Destroy', payoff, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
+<% end %>
   </tbody>
 </table>
 

@@ -5,6 +5,7 @@
 <table>
   <thead>
     <tr>
+	  <th>Region Image </th>
       <th>Name</th>
       <th>Top left x</th>
       <th>Top left y</th>
@@ -25,6 +26,7 @@
   <tbody>
     <% @regions.each do |region| %>
       <tr>
+		<td><%=image_tag region.watermark%></td>
         <td><%= region.name %></td>
         <td><%= region.top_left_x %></td>
         <td><%= region.top_left_y %></td>

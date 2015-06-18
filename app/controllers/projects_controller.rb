@@ -1,12 +1,15 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: [:select, :show, :edit, :update, :destroy]
 
   # GET /projects
   # GET /projects.json
   def index
     @projects = Project.all
+    #@projects = current_user.projects
   end
-
+  def select
+    session[:current_project] = @project
+  end
   # GET /projects/1
   # GET /projects/1.json
   def show
@@ -69,6 +72,6 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:name, :description, :user, :logo, :hpuser_id)
+      params.require(:project).permit(:name,:user,:description, :logo)
     end
 end

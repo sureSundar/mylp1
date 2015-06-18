@@ -72,6 +72,11 @@ GEM
     columnize (0.9.0)
     database_cleaner (1.4.1)
     debug_inspector (0.0.2)
+    delayed_job (4.0.6)
+      activesupport (>= 3.0, < 5.0)
+    delayed_job_active_record (4.0.3)
+      activerecord (>= 3.0, < 5.0)
+      delayed_job (>= 3.0, < 4.1)
     devise (3.5.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -126,6 +131,8 @@ GEM
       mini_portile (~> 0.6.0)
     orm_adapter (0.5.0)
     pg (0.18.2)
+    progress_job (0.0.4)
+      delayed_job
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     rack (1.6.1)
@@ -246,6 +253,7 @@ DEPENDENCIES
   carrierwave
   coffee-rails (~> 4.1.0)
   database_cleaner
+  delayed_job_active_record
   devise
   factory_girl_rails
   faker
@@ -256,6 +264,7 @@ DEPENDENCIES
   launchy
   live_paper
   pg
+  progress_job
   quiet_assets
   rails (= 4.2.1)
   rails_12factor

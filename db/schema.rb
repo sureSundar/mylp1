@@ -11,7 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150617164913) do
+ActiveRecord::Schema.define(version: 20150618120525) do
+
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer  "priority",         default: 0, null: false
+    t.integer  "attempts",         default: 0, null: false
+    t.text     "handler",                      null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "progress_stage"
+    t.integer  "progress_current", default: 0
+    t.integer  "progress_max",     default: 0
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
 
   create_table "hpusers", force: :cascade do |t|
     t.string   "username"
@@ -55,6 +74,7 @@ ActiveRecord::Schema.define(version: 20150617164913) do
     t.integer  "hpuser_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "user_id"
   end
 
   add_index "projects", ["hpuser_id"], name: "index_projects_on_hpuser_id"
@@ -94,6 +114,8 @@ ActiveRecord::Schema.define(version: 20150617164913) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "name"
+    t.string   "client_id"
+    t.string   "client_secret"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

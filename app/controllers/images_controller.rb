@@ -1,6 +1,6 @@
 class ImagesController < ApplicationController
   before_action :set_image, only: [:download,:show, :edit, :update, :destroy]
-
+  
   # GET /images
   # GET /images.json
   def index
@@ -66,7 +66,7 @@ class ImagesController < ApplicationController
     #save_dir = "#{root_dir}/tc-hpMWMark"
     uploader = AvatarUploader.new
     filename = "watermark"
-     lp = LivePaper.auth({id: "62me9qmy5vy1je70onkq1qe8q4oxhu7y", secret: "sRgV8ECR9ygoA67VSVQimt52sYn5deZ3"})
+     #lp = LivePaper.auth({id: "62me9qmy5vy1je70onkq1qe8q4oxhu7y", secret: "sRgV8ECR9ygoA67VSVQimt52sYn5deZ3"})
       #image = LivePaper::Image.upload "file:///Users/sundar/Downloads/IMG_1010.JPG"
     #image = LivePaper::Image.upload "https://s3-us-west-1.amazonaws.com/linkcreationstudio.com/developer/zion_600x450.jpg"
     #image = LivePaper::Image.upload @image.original 
@@ -77,12 +77,12 @@ class ImagesController < ApplicationController
       overlay = Magick::Image.read(@image.original.path).first
       #overlay = @image.original
       @regions.each do |r|
-        puts "Watermarking #{r.name}"
+        #puts "Watermarking #{r.name}"
              #overlay_path = Rails.root.join("/assets/images/IMG_1010.png")
-             source = Magick::Image.read("#{r.original}").first
-             crop = source.crop(r.top_left_x,r.top_left_y,r.width,r.height)
-             crop.write('pool_cropped.jpg')
-             uploader.store!(crop)   
+             #source = Magick::Image.read(r.original.path).first
+             #crop = source.crop(r.top_left_x,r.top_left_y,r.width,r.height)
+             #crop.write('pool_cropped.jpg')
+             #uploader.store!(crop)   
              #source = source.resize_to_fill(70, 70).quantize(256, Magick::GRAYColorspace).contrast(true)
              #source.composite!(overlay, 0, 0, Magick::OverCompositeOp)
              #colored = Magick::Image.new(70, 70) { background_color = color }
@@ -91,23 +91,26 @@ class ImagesController < ApplicationController
              #colored.write('colored.jpg')
              
                      #image = LivePaper::Image.upload  "#{r.original}"
-                     image1 = LivePaper::Image.upload  "pool_cropped.jpg"
-        t=LivePaper::WmTrigger.create(name: '#{r.name}', watermark: {strength: r.watermark_strength, resolution: r.watermark_resolution, imageURL: image1 })
+                     #image1 = LivePaper::Image.upload  "pool_cropped.jpg"
+        #t=LivePaper::WmTrigger.create(name: '#{r.name}', watermark: {strength: r.watermark_strength, resolution: r.watermark_resolution, imageURL: image1 })
+        t = LivePaper::WmTrigger.get(r.trigger)
         puts "Payoff to : ",r.payoff.url
-        p=LivePaper::Payoff.create(name: 'name', type: LivePaper::Payoff::TYPE[:WEB], url: r.payoff.url)
-        l=LivePaper::Link.create(payoff_id: p.id, trigger_id: t.id, name: "link")
-        r.payoff.payoff = p.id
-        r.payoff.save
-        r.trigger = t.id
-        r.link = l.id
-        r.save
+        #p=LivePaper::Payoff.create(name: 'name', type: LivePaper::Payoff::TYPE[:WEB], url: r.payoff.url)
+        #p=LivePaper::Payoff.create(name: 'name', type: LivePaper::Payoff::TYPE[:WEB], url: r.payoff.url)
+        #l=LivePaper::Link.create(payoff_id: r.payoff.payoff, trigger_id: t.id, name: "link")
+        #r.payoff.payoff = p.id
+        #r.payoff.save
+        #r.trigger = t.id
+        #r.link = l.id
+        #r.save
       #t.download_watermark
       puts "SAVING:  #{filename}_#{r.name}.jpg"
        File.open("#{filename}_#{r.name}.jpg", "wb:UTF-8") { |f| f.write(t.download_watermark.force_encoding("UTF-8")) }
        puts "Creating final image..."
        
-     crop_region = Magick::Image.read("#{filename}_#{r.name}.jpg").last
+     crop_region = Magick::Image.read(r.watermark.path).last
      final_wm = overlay.composite(crop_region,r.top_left_x,r.top_left_y,Magick::OverCompositeOp)
+     
     final_wm.write("#{filename}_#{r.name}_final.jpg")
     puts final_wm 
     
@@ -150,6 +153,7 @@ class ImagesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_image
       @image = Image.find(params[:id])
+      @lp = LivePaper.auth({id: "62me9qmy5vy1je70onkq1qe8q4oxhu7y", secret: "sRgV8ECR9ygoA67VSVQimt52sYn5deZ3"})
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

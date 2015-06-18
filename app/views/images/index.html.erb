@@ -5,6 +5,8 @@
 <table>
   <thead>
     <tr>
+      <th>Original Image</th>
+      <th>Final Image</th>
       <th>Name</th>
       <th>Original</th>
       <th>Final</th>
@@ -18,6 +20,11 @@
   <tbody>
     <% @images.each do |image| %>
       <tr>
+        <td><a href="<%=image.original.path%>" download="custom-filename.jpg" title="ImageName">
+    		<%=image_tag image.original %>
+		</a>
+		</td>
+        <td><%=image_tag image.final %></td>
         <td><%= image.name %></td>
         <td><%= image.original %></td>
         <td><%= image.final %></td>
